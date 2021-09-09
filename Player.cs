@@ -8,7 +8,7 @@ namespace Yatzi
         private string PlayerName { get; set; }
         private string[] diceMenuOptions = new string[] { "1", "2", "3", "4", "5" };
 
-        public List<int> diceNumberList = new List<int>();        
+        public List<int> diceNumberList = new List<int>();
         public int numberOfThrows = 1;
 
         public Player(string name)
@@ -19,7 +19,7 @@ namespace Yatzi
         public void DicesToThrowAgain(int startX = 0, int startY = 10, int optionsPerColumn = 1, int columnSpacing = 3, bool enumerate = true)
         {
             int counter = 1, diceNumber = 1;
-            ConsoleKey key;            
+            ConsoleKey key;
             Console.CursorVisible = false;
             Console.SetCursorPosition(0, 7);
             Console.WriteLine("Highlight and press ENTER the dices you want to throw again.\nT to throw the dice!\nD to stop you round");
@@ -58,29 +58,26 @@ namespace Yatzi
                     }
                 } while (key != ConsoleKey.Enter && key != ConsoleKey.T && key != ConsoleKey.D);
 
-                if ( !diceNumberList.Contains(diceNumber))
+                if (diceNumber != -1 && !diceNumberList.Contains(diceNumber))
                 {
-                        diceNumberList.Add(diceNumber);
-                        counter++;
-                        Console.WriteLine("\nMarked dices: {0}\r", string.Join(" ", diceNumberList));                 
+                    diceNumberList.Add(diceNumber);
+                    counter++;
+                    Console.WriteLine("\nMarked dices: {0}\r", string.Join(" ", diceNumberList));
                 }
-                else if(diceNumber != -1) { break; }
+                else if (diceNumber == -1) { break; }
             }
             Console.SetCursorPosition(0, 11);
             Console.Write("                                        ");
         }
-
         public void PrintPlayerInfo()
         {
             Console.SetCursorPosition(10, 0);
+            Console.Write("                                        \r");
             Console.Write($"{PlayerName} {numberOfThrows}/3");
         }
-
         public void ResetDiceList()
         {
             diceNumberList.Clear();
         }
-
-       
     }
 }
