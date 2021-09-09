@@ -10,33 +10,44 @@ namespace Yatzi
         {
             Game game = new Game(1);
             Dice dice = new Dice(6);
-            Player playerOne = new Player("Filip");
-            Player playerTwo = new Player("Kalle");
-
-            dice.ThrowAllDice();
-            dice.PrintDiceResult();
-            playerOne.PrintPlayerInfo();
+            Console.WriteLine("Welcom to Yatzi. Please enter player names...");
+            Player playerOne = new Player(Console.ReadLine());
+            Player playerTwo = new Player(Console.ReadLine());
+            Console.Clear();         
+            
             for (int gameRound = 1; gameRound < 14; gameRound++)
             {
+                dice.ThrowAllDice();
+                dice.PrintDiceResult();
+                playerOne.PrintPlayerInfo();
+
                 for (int playerThrows = 1; playerThrows < 3; playerThrows++)
                 {
                     playerOne.numberOfThrows++;
-                    Console.SetCursorPosition(0, 8);
                     playerOne.DicesToThrowAgain();
-                    dice.ThrowDices(playerOne.diceNumberList);
+                    dice.ThrowDice(playerOne.diceNumberList);
+                    playerOne.ResetDiceList();
                     dice.PrintDiceResult();
-
-                   
+                    playerOne.PrintPlayerInfo();
 
                 }
+
+                dice.ThrowAllDice();
                 dice.PrintDiceResult();
-                for (int playerThrows = 0; playerThrows < 3; playerThrows++)
+                playerTwo.PrintPlayerInfo();
+
+                for (int playerThrows = 1; playerThrows < 3; playerThrows++)
                 {
-
+                    playerTwo.numberOfThrows++;
+                    playerTwo.DicesToThrowAgain();
+                    dice.ThrowDice(playerTwo.diceNumberList);
+                    playerTwo.ResetDiceList();
+                    dice.PrintDiceResult();
+                    playerTwo.PrintPlayerInfo();
                 }
+
+                playerOne.numberOfThrows = playerTwo.numberOfThrows = 1;
             }
-
-
         }
     }
 }

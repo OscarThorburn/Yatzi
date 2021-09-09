@@ -7,8 +7,6 @@ namespace Yatzi
     class Dice
     {
         public int Sides { get; set; }
-
-        private List<int> HoldDiceList = new List<int>();
         public int[] diceResult = new int[5];
         
 
@@ -31,7 +29,7 @@ namespace Yatzi
             }
         }
 
-        public void ThrowDices(List<int> diceNumberList)
+        public void ThrowDice(List<int> diceNumberList)
         {
             foreach (var number in diceNumberList)
             {
@@ -41,8 +39,8 @@ namespace Yatzi
         public void PrintDiceResult()
         {
             Console.SetCursorPosition(0, 0);
-            Console.WriteLine($"Dices:\n" +
-                $"__1___2___3___4___5__\n" +
+            Console.WriteLine($"Player:\n" +
+                $"_____________________\n" +
                 $"|   |   |   |   |   | \n" +
                 $"| {diceResult[0]} | {diceResult[1]} | {diceResult[2]} | {diceResult[3]} | {diceResult[4]} |\n" +
                 $"|___|___|___|___|___| ");
