@@ -6,33 +6,35 @@ namespace Yatzi
     internal class Player
     {
         private string PlayerName { get; set; }
-        private string[] DiceMenuOptions = new string[] { "1", "2", "3", "4", "5" };
-        private int[] PlayerScore = new int[14];
+        private string[] DicesToThrowAgainOptions = new string[] { "1", "2", "3", "4", "5" };        
+        public List<int> PlayerScore = new List<int>();
 
-        public  List<int> diceNumberList = new List<int>();
-        public int numberOfThrows = 1;
+        public List<int> DicesToThrowAgainList = new List<int>();
+        public int NumberOfThrows { get; set; }
 
+        Score score = new Score();
         public Player(string name)
         {
             PlayerName = name;
+            NumberOfThrows = 1;
         }
 
-        public void DicesToThrowAgain(int startX = 0, int startY = 10, int optionsPerColumn = 1, int columnSpacing = 3, bool enumerate = true)
+        public void DicesToThrowAgain(int startX = 0, int startY = 10, int optionsPerColumn = 1, int columnSpacing = 3)
         {
             int counter = 1, diceNumber = 1;
             ConsoleKey key;
             Console.CursorVisible = false;
             Console.SetCursorPosition(0, 7);
-            Console.WriteLine("Highlight and press ENTER the dices you want to throw again.\nT to throw the dice!\nD to stop you round");
+            Console.WriteLine("Highlight and press ENTER the dices you want to throw again.\n'T' to throw the dice\n'D' to stop you round");
             while (counter < 6)
             {
                 do
                 {
-                    for (int i = 0; i < DiceMenuOptions.Length; i++)
+                    for (int i = 0; i < DicesToThrowAgainOptions.Length; i++)
                     {
                         Console.SetCursorPosition(i / optionsPerColumn >= 1 ? startX + columnSpacing * (i / optionsPerColumn) : startX, startY + i % optionsPerColumn);
-                        if (i + 1 == diceNumber) { Console.ForegroundColor = ConsoleColor.Red; }
-                        Console.Write(enumerate ? $"{DiceMenuOptions[i]}" : DiceMenuOptions[i]);
+                        if (i + 1 == diceNumber) Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write($"{DicesToThrowAgainOptions[i]}");
                         Console.ResetColor();
                     }
 
@@ -42,13 +44,13 @@ namespace Yatzi
                     {
                         case ConsoleKey.LeftArrow:
                             {
-                                if (diceNumber - 1 >= optionsPerColumn) { diceNumber -= optionsPerColumn; }
+                                if (diceNumber - 1 >= optionsPerColumn) diceNumber -= optionsPerColumn;
                                 break;
                             }
                         case ConsoleKey.RightArrow:
                             {
-                                if (diceNumber - 1 + optionsPerColumn < DiceMenuOptions.Length) { diceNumber += optionsPerColumn; }
-                                else if (optionsPerColumn < DiceMenuOptions.Length) { diceNumber = DiceMenuOptions.Length; }
+                                if (diceNumber - 1 + optionsPerColumn < DicesToThrowAgainOptions.Length) diceNumber += optionsPerColumn;
+                                else if (optionsPerColumn < DicesToThrowAgainOptions.Length) diceNumber = DicesToThrowAgainOptions.Length;
                                 break;
                             }
                         case ConsoleKey.T:
@@ -59,11 +61,11 @@ namespace Yatzi
                     }
                 } while (key != ConsoleKey.Enter && key != ConsoleKey.T && key != ConsoleKey.D);
 
-                if (diceNumber != -1 && !diceNumberList.Contains(diceNumber))
+                if (diceNumber != -1 && !DicesToThrowAgainList.Contains(diceNumber))
                 {
-                    diceNumberList.Add(diceNumber);
+                    DicesToThrowAgainList.Add(diceNumber);
                     counter++;
-                    Console.WriteLine("\nMarked dices: {0}\r", string.Join(" ", diceNumberList));
+                    Console.WriteLine("\nMarked dices: {0}\r", string.Join(" ", DicesToThrowAgainList));
                 }
                 else if (diceNumber == -1) { break; }
             }
@@ -74,22 +76,31 @@ namespace Yatzi
         {
             Console.SetCursorPosition(10, 0);
             Console.Write("                                        \r");
-            Console.Write($"{PlayerName} {numberOfThrows}/3");
-           
+            Console.Write($"{PlayerName} {NumberOfThrows}/3");
+            for (int i = 0; i < PlayerScore.Count; i++)
+            {
+                Console.SetCursorPosition(2, i + 15);
+                Console.Write(PlayerScore[i] != 0 ? PlayerScore[i].ToString() : "x");
+            }
+
         }
         public void ResetDiceList()
         {
-            diceNumberList.Clear();
+            DicesToThrowAgainList.Clear();
         }
-
-        private void PrintPlayerScores()
+        
+       public void CalculateScore(List<int> diceResult)
         {
-            Console.SetCursorPosition(2, 15);
-            Console.WriteLine("SCORE CARD");
-            for (int i = 0; i < PlayerScore.Length; i++)
+            int scoreCardIndex = score.ScoreCardMenu();
+            
+            if(1 <= scoreCardIndex && scoreCardIndex <= 6)
             {
-                Console.WriteLine("__________");
-
+                switch (scoreCardIndex)
+                {
+                    case 1:
+                        diceResult.FindAll(value1 => )
+                        break;
+                }
             }
         }
     }

@@ -8,12 +8,11 @@ namespace Yatzi
     {
         static void Main(string[] args)
         {
-            Game game = new Game(1);
             Dice dice = new Dice(6);
             Console.WriteLine("Welcom to Yatzi. Please enter player names...");
             Player playerOne = new Player(Console.ReadLine());
             Player playerTwo = new Player(Console.ReadLine());
-            Console.Clear();         
+            Console.Clear();
             
             for (int gameRound = 1; gameRound < 14; gameRound++)
             {
@@ -23,12 +22,13 @@ namespace Yatzi
 
                 for (int playerThrows = 1; playerThrows < 3; playerThrows++)
                 {
-                    playerOne.numberOfThrows++;
+                    playerOne.NumberOfThrows++;
                     playerOne.DicesToThrowAgain();
-                    dice.ThrowDice(playerOne.diceNumberList);
+                    dice.ThrowDice(playerOne.DicesToThrowAgainList);
                     playerOne.ResetDiceList();
                     dice.PrintDiceResult();
                     playerOne.PrintPlayerInfo();
+                    playerOne.CalculateScore(dice.diceResult);
                 }
 
                 dice.ThrowAllDice();
@@ -37,15 +37,15 @@ namespace Yatzi
 
                 for (int playerThrows = 1; playerThrows < 3; playerThrows++)
                 {
-                    playerTwo.numberOfThrows++;
+                    playerTwo.NumberOfThrows++;
                     playerTwo.DicesToThrowAgain();
-                    dice.ThrowDice(playerTwo.diceNumberList);
+                    dice.ThrowDice(playerTwo.DicesToThrowAgainList);
                     playerTwo.ResetDiceList();
                     dice.PrintDiceResult();
                     playerTwo.PrintPlayerInfo();
                 }
 
-                playerOne.numberOfThrows = playerTwo.numberOfThrows = 1;
+                playerOne.NumberOfThrows = playerTwo.NumberOfThrows = 1;
             }
         }
     }
