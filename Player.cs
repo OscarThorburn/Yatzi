@@ -6,9 +6,10 @@ namespace Yatzi
     internal class Player
     {
         private string PlayerName { get; set; }
-        private string[] diceMenuOptions = new string[] { "1", "2", "3", "4", "5" };
+        private string[] DiceMenuOptions = new string[] { "1", "2", "3", "4", "5" };
+        private int[] PlayerScore = new int[14];
 
-        public List<int> diceNumberList = new List<int>();
+        public  List<int> diceNumberList = new List<int>();
         public int numberOfThrows = 1;
 
         public Player(string name)
@@ -27,11 +28,11 @@ namespace Yatzi
             {
                 do
                 {
-                    for (int i = 0; i < diceMenuOptions.Length; i++)
+                    for (int i = 0; i < DiceMenuOptions.Length; i++)
                     {
                         Console.SetCursorPosition(i / optionsPerColumn >= 1 ? startX + columnSpacing * (i / optionsPerColumn) : startX, startY + i % optionsPerColumn);
                         if (i + 1 == diceNumber) { Console.ForegroundColor = ConsoleColor.Red; }
-                        Console.Write(enumerate ? $"{diceMenuOptions[i]}" : diceMenuOptions[i]);
+                        Console.Write(enumerate ? $"{DiceMenuOptions[i]}" : DiceMenuOptions[i]);
                         Console.ResetColor();
                     }
 
@@ -46,8 +47,8 @@ namespace Yatzi
                             }
                         case ConsoleKey.RightArrow:
                             {
-                                if (diceNumber - 1 + optionsPerColumn < diceMenuOptions.Length) { diceNumber += optionsPerColumn; }
-                                else if (optionsPerColumn < diceMenuOptions.Length) { diceNumber = diceMenuOptions.Length; }
+                                if (diceNumber - 1 + optionsPerColumn < DiceMenuOptions.Length) { diceNumber += optionsPerColumn; }
+                                else if (optionsPerColumn < DiceMenuOptions.Length) { diceNumber = DiceMenuOptions.Length; }
                                 break;
                             }
                         case ConsoleKey.T:
@@ -74,10 +75,22 @@ namespace Yatzi
             Console.SetCursorPosition(10, 0);
             Console.Write("                                        \r");
             Console.Write($"{PlayerName} {numberOfThrows}/3");
+           
         }
         public void ResetDiceList()
         {
             diceNumberList.Clear();
+        }
+
+        private void PrintPlayerScores()
+        {
+            Console.SetCursorPosition(2, 15);
+            Console.WriteLine("SCORE CARD");
+            for (int i = 0; i < PlayerScore.Length; i++)
+            {
+                Console.WriteLine("__________");
+
+            }
         }
     }
 }

@@ -14,13 +14,11 @@ namespace Yatzi
         {
             Sides = sides;
         }
-
         private void ThrowDice(int diceNumber)
         {
             Random rnd = new Random();
             diceResult[diceNumber - 1] = rnd.Next(1, Sides + 1);
         }
-
         public void ThrowAllDice()
         {
             for (int i = 1; i < 6; i++)
@@ -28,7 +26,6 @@ namespace Yatzi
                 ThrowDice(i);
             }
         }
-
         public void ThrowDice(List<int> diceNumberList)
         {
             foreach (var number in diceNumberList)

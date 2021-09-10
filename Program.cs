@@ -29,7 +29,6 @@ namespace Yatzi
                     playerOne.ResetDiceList();
                     dice.PrintDiceResult();
                     playerOne.PrintPlayerInfo();
-
                 }
 
                 dice.ThrowAllDice();
