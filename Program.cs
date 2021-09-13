@@ -15,7 +15,7 @@ namespace Yatzi
             Player playerTwo = new Player(Console.ReadLine());
             Console.Clear();
             
-            for (int gameRound = 1; gameRound < 14; gameRound++)
+            for (int gameRound = 1; gameRound < 15; gameRound++)
             {
                 dice.ThrowAllDice();
                 dice.PrintDiceResult();
@@ -63,8 +63,9 @@ namespace Yatzi
             }
 
             Console.Clear();
-            Console.WriteLine($"{playerOne.PlayerName}: {playerOne.PlayerScore.Sum()}");
-            Console.WriteLine($"{playerTwo.PlayerName}: {playerTwo.PlayerScore.Sum()}");
+            Console.WriteLine($"{playerOne.PlayerName}: {playerOne.PlayerScore.Sum()}\n {playerTwo.PlayerName}: {playerTwo.PlayerScore.Sum()}");
+            Console.Write(playerOne.PlayerScore.Sum() > playerTwo.PlayerScore.Sum() ? $"Grattis {playerOne.PlayerName}" : $"Grattis {playerTwo.PlayerName}");
+            Console.ReadKey();
         }
     }
 }

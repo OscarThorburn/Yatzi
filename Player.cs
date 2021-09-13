@@ -98,7 +98,7 @@ namespace Yatzi
             for (int i = 0; i < score.PlayerScoreCardOptions.Length; i++)
             {
                 Console.SetCursorPosition(0, i + 15);
-                Console.Write(score.PlayerScoreCardOptions[i]);
+                Console.Write($"{score.PlayerScoreCardOptions[i]}:");
             }
         }
 

@@ -7,7 +7,7 @@ namespace Yatzi
     class Score
     {
 
-        public string[] PlayerScoreCardOptions = new string[] { "Ettor", "Tvåor", "Treor", "Fyror", "Femmor", "Sexor", "Två-Par", "Tre-Par", "Fyr-Par", "Liten Stege", "Stor Stege", "Kåk", "Chans", "Yatzi" };
+        public string[] PlayerScoreCardOptions = new string[] { "Ettor", "Tvåor", "Treor", "Fyror", "Femmor", "Sexor", "Par", "Tre-Par", "Fyr-Par", "Liten Stege", "Stor Stege", "Kåk", "Chans", "Yatzi" };
         public int ScoreCardMenu(int startX = 0, int startY = 15, int optionsPerColumn = 15)
         {
             int currentSelection = 1;
