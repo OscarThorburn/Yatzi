@@ -5,23 +5,24 @@ namespace Yatzi
 {
     internal class Player
     {
-        private string PlayerName { get; set; }
-        private string[] DicesToThrowAgainOptions = new string[] { "1", "2", "3", "4", "5" };        
-        public List<int> PlayerScore = new List<int>();
+        public string PlayerName { get; set; }
+        private string[] DicesToThrowAgainOptions = new string[] { "1", "2", "3", "4", "5" };
+        public List<int> PlayerScore = new List<int> { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
 
         public List<int> DicesToThrowAgainList = new List<int>();
         public int NumberOfThrows { get; set; }
 
-        Score score = new Score();
+        private Score score = new Score();
+
         public Player(string name)
         {
             PlayerName = name;
             NumberOfThrows = 1;
         }
 
-        public void DicesToThrowAgain(int startX = 0, int startY = 10, int optionsPerColumn = 1, int columnSpacing = 3)
+        public int DicesToThrowAgain(int startX = 0, int startY = 10, int optionsPerColumn = 1, int columnSpacing = 3)
         {
-            int counter = 1, diceNumber = 1;
+            int counter = 1, diceNumber = 1, done = 1;
             ConsoleKey key;
             Console.CursorVisible = false;
             Console.SetCursorPosition(0, 7);
@@ -58,50 +59,58 @@ namespace Yatzi
                                 diceNumber = -1;
                                 break;
                             }
+                        case ConsoleKey.D:
+                            {
+                                diceNumber = -1;
+                                done = -2;
+                                break;
+                            }
                     }
                 } while (key != ConsoleKey.Enter && key != ConsoleKey.T && key != ConsoleKey.D);
 
-                if (diceNumber != -1 && !DicesToThrowAgainList.Contains(diceNumber))
+                if (diceNumber > 0 && !DicesToThrowAgainList.Contains(diceNumber))
                 {
                     DicesToThrowAgainList.Add(diceNumber);
                     counter++;
                     Console.WriteLine("\nMarked dices: {0}\r", string.Join(" ", DicesToThrowAgainList));
                 }
                 else if (diceNumber == -1) { break; }
-            }
+            }     
             Console.SetCursorPosition(0, 11);
             Console.Write("                                        ");
+            return done;
         }
+
         public void PrintPlayerInfo()
         {
             Console.SetCursorPosition(10, 0);
             Console.Write("                                        \r");
             Console.Write($"{PlayerName} {NumberOfThrows}/3");
+        }
+
+        public void PrintPlayerScore()
+        {
             for (int i = 0; i < PlayerScore.Count; i++)
             {
-                Console.SetCursorPosition(2, i + 15);
-                Console.Write(PlayerScore[i] != 0 ? PlayerScore[i].ToString() : "x");
+                Console.SetCursorPosition(15, i + 15);
+                Console.Write(PlayerScore[i] != -1 ? PlayerScore[i].ToString() : "--");
             }
-
+            for (int i = 0; i < score.PlayerScoreCardOptions.Length; i++)
+            {
+                Console.SetCursorPosition(0, i + 15);
+                Console.Write(score.PlayerScoreCardOptions[i]);
+            }
         }
+
         public void ResetDiceList()
         {
             DicesToThrowAgainList.Clear();
         }
-        
-       public void CalculateScore(List<int> diceResult)
+
+        public void CalculatePlayerScore(List<int> diceResult)
         {
             int scoreCardIndex = score.ScoreCardMenu();
-            
-            if(1 <= scoreCardIndex && scoreCardIndex <= 6)
-            {
-                switch (scoreCardIndex)
-                {
-                    case 1:
-                        diceResult.FindAll(value1 => )
-                        break;
-                }
-            }
+            PlayerScore[scoreCardIndex - 1] = (score.CalculateScore(diceResult, scoreCardIndex));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
+using System.Linq;
 
 namespace Yatzi
 {
@@ -19,34 +20,51 @@ namespace Yatzi
                 dice.ThrowAllDice();
                 dice.PrintDiceResult();
                 playerOne.PrintPlayerInfo();
+                playerOne.PrintPlayerScore();
 
                 for (int playerThrows = 1; playerThrows < 3; playerThrows++)
                 {
-                    playerOne.NumberOfThrows++;
-                    playerOne.DicesToThrowAgain();
+                    playerOne.NumberOfThrows++;                  
+                    if (playerOne.DicesToThrowAgain() == -2)
+                    {
+                        break;
+                    }
                     dice.ThrowDice(playerOne.DicesToThrowAgainList);
                     playerOne.ResetDiceList();
                     dice.PrintDiceResult();
                     playerOne.PrintPlayerInfo();
-                    playerOne.CalculateScore(dice.diceResult);
+
                 }
+                playerOne.CalculatePlayerScore(dice.diceResult);
+                
+                Console.Clear();
 
                 dice.ThrowAllDice();
                 dice.PrintDiceResult();
                 playerTwo.PrintPlayerInfo();
+                playerTwo.PrintPlayerScore();
 
                 for (int playerThrows = 1; playerThrows < 3; playerThrows++)
                 {
                     playerTwo.NumberOfThrows++;
-                    playerTwo.DicesToThrowAgain();
+                    if (playerTwo.DicesToThrowAgain() == -2)
+                    {
+                        break;
+                    }
                     dice.ThrowDice(playerTwo.DicesToThrowAgainList);
                     playerTwo.ResetDiceList();
                     dice.PrintDiceResult();
                     playerTwo.PrintPlayerInfo();
                 }
+                playerTwo.CalculatePlayerScore(dice.diceResult);
+                Console.Clear();
 
                 playerOne.NumberOfThrows = playerTwo.NumberOfThrows = 1;
             }
+
+            Console.Clear();
+            Console.WriteLine($"{playerOne.PlayerName}: {playerOne.PlayerScore.Sum()}");
+            Console.WriteLine($"{playerTwo.PlayerName}: {playerTwo.PlayerScore.Sum()}");
         }
     }
 }
